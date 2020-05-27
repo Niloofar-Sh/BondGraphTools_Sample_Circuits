@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<model name="BG5" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#">
+    <units name="J_per_m3">
+        <unit units="joule"/>
+        <unit exponent="-3" units="metre"/>
+    </units>
+    <units name="m3">
+        <unit exponent="3" units="metre"/>
+    </units>
+    <units name="per_m3">
+        <unit exponent="-3" units="metre"/>
+    </units>
+    <units name="m3_per_s">
+        <unit exponent="3" units="metre"/>
+        <unit exponent="-1" units="second"/>
+    </units>
+    <units name="J_per_m6">
+        <unit units="joule"/>
+        <unit exponent="-6" units="metre"/>
+    </units>
+    <units name="Js_per_m6">
+        <unit units="joule"/>
+        <unit units="second"/>
+        <unit exponent="-6" units="metre"/>
+    </units>
+    <component name="main">
+        <variable initial_value="0" name="t" units="second"/>
+        <!-- State variables-->
+        <variable initial_value="5e-6" name="q2" units="m3"/>
+        <variable initial_value="0" name="v1" units="m3_per_s"/>
+        <!--1-->
+        <variable name="v2" units="m3_per_s"/>
+        <variable name="v3" units="m3_per_s"/>
+        <variable name="u1" units="J_per_m3"/>
+        <variable name="u2" units="J_per_m3"/>
+        <variable initial_value="0" name="u3" units="J_per_m3"/>
+        <!--1-->
+        <variable name="u4" units="J_per_m3"/>
+        <variable name="u5" units="J_per_m3"/>
+        <!-- Constitutive parameters-->
+        <variable initial_value="0.60015e-6" name="p0" units="J_per_m3"/>
+        <!--var k3: per_m3 {init: 1};-->
+        <variable initial_value="10.664e-6" name="R1" units="Js_per_m6"/>
+        <variable initial_value="10.664e-6" name="R3" units="Js_per_m6"/>
+        <!-- Conservation laws-->
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>q2</ci>
+                </apply>
+                <ci>v2</ci>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>v1</ci>
+                <apply>
+                    <plus/>
+                    <ci>v2</ci>
+                    <ci>v3</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u1</ci>
+                <apply>
+                    <plus/>
+                    <ci>u2</ci>
+                    <ci>u4</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u2</ci>
+                <apply>
+                    <plus/>
+                    <ci>u3</ci>
+                    <ci>u5</ci>
+                </apply>
+            </apply>
+            <!-- Constitutive relations-->
+            <apply>
+                <eq/>
+                <ci>u4</ci>
+                <apply>
+                    <times/>
+                    <ci>R1</ci>
+                    <ci>v1</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u2</ci>
+                <apply>
+                    <divide/>
+                    <ci>q2</ci>
+                    <ci>p0</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u5</ci>
+                <apply>
+                    <times/>
+                    <ci>R3</ci>
+                    <ci>v3</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+</model>

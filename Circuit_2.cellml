@@ -1,0 +1,168 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<model name="BG2" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#">
+    <units name="J_per_C">
+        <unit units="joule"/>
+        <unit exponent="-1" units="coulomb"/>
+    </units>
+    <units name="C_per_s">
+        <unit units="coulomb"/>
+        <unit exponent="-1" units="second"/>
+    </units>
+    <units name="C2_per_J">
+        <unit exponent="2" units="coulomb"/>
+        <unit exponent="-1" units="joule"/>
+    </units>
+    <units name="Js_per_C2">
+        <unit units="joule"/>
+        <unit units="second"/>
+        <unit exponent="-2" units="coulomb"/>
+    </units>
+    <component name="main">
+        <variable initial_value="0" name="t" units="second"/>
+        <!-- State variables-->
+        <variable initial_value="1" name="q1" units="coulomb"/>
+        <variable initial_value="0" name="q2" units="coulomb"/>
+        <variable initial_value="0" name="q3" units="coulomb"/>
+        <variable name="v1" units="C_per_s"/>
+        <variable name="v_c1" units="C_per_s"/>
+        <variable name="v2" units="C_per_s"/>
+        <variable name="v3" units="C_per_s"/>
+        <variable name="u1" units="J_per_C"/>
+        <variable name="u2" units="J_per_C"/>
+        <variable name="u3" units="J_per_C"/>
+        <variable name="u4" units="J_per_C"/>
+        <variable name="u5" units="J_per_C"/>
+        <!-- Constitutive parameters-->
+        <variable initial_value="150e-6" name="C1" units="C2_per_J"/>
+        <variable initial_value="100e-6" name="C2" units="C2_per_J"/>
+        <variable initial_value="220e-6" name="C3" units="C2_per_J"/>
+        <variable initial_value="100e3" name="R1" units="Js_per_C2"/>
+        <variable initial_value="10e3" name="R2" units="Js_per_C2"/>
+        <!-- Conservation relations-->
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>q1</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>v1</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>q2</ci>
+                </apply>
+                <ci>v2</ci>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>q3</ci>
+                </apply>
+                <ci>v3</ci>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>v1</ci>
+                <apply>
+                    <plus/>
+                    <ci>v2</ci>
+                    <ci>v3</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u1</ci>
+                <apply>
+                    <plus/>
+                    <ci>u2</ci>
+                    <ci>u4</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u2</ci>
+                <apply>
+                    <plus/>
+                    <ci>u3</ci>
+                    <ci>u5</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>v_c1</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <diff/>
+                        <bvar>
+                            <ci>t</ci>
+                        </bvar>
+                        <ci>q1</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <!-- Constitutive relations-->
+            <apply>
+                <eq/>
+                <ci>u1</ci>
+                <apply>
+                    <divide/>
+                    <ci>q1</ci>
+                    <ci>C1</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u2</ci>
+                <apply>
+                    <divide/>
+                    <ci>q2</ci>
+                    <ci>C2</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u3</ci>
+                <apply>
+                    <divide/>
+                    <ci>q3</ci>
+                    <ci>C3</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u4</ci>
+                <apply>
+                    <times/>
+                    <ci>R1</ci>
+                    <ci>v1</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u5</ci>
+                <apply>
+                    <times/>
+                    <ci>R2</ci>
+                    <ci>v3</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+</model>

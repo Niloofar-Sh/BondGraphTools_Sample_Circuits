@@ -1,0 +1,334 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<model name="SingleBifurcation" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <import xlink:href="Units.cellml">
+        <!--unit m using unit m;-->
+        <units name="m3" units_ref="m3"/>
+        <!--q-->
+        <units name="m3_per_s" units_ref="m3_per_s"/>
+        <!--v-->
+        <units name="m6_per_J" units_ref="m6_per_J"/>
+        <!--c-->
+        <units name="J_per_s" units_ref="J_per_s"/>
+        <units name="J_per_m3" units_ref="J_per_m3"/>
+        <!--u-->
+        <units name="J_s_per_m3" units_ref="J_s_per_m3"/>
+        <!-- p-->
+        <units name="J_s_per_m6" units_ref="J_s_per_m6"/>
+        <!--R
+unit J_s2_per_m5 using unit J_s2_per_m5;-->
+        <units name="J_s2_per_m6" units_ref="J_s2_per_m6"/>
+        <!--I-->
+    </import>
+    <component name="main">
+        <variable name="t" units="second"/>
+        <!--        var period: second {init: 1.0};-->
+        <!-- State variables-->
+        <variable initial_value="10e-6" name="q1" units="m3"/>
+        <variable initial_value="4e-6" name="q2" units="m3"/>
+        <variable initial_value="4e-6" name="q3" units="m3"/>
+        <variable initial_value="9.331e6" name="u_in" units="J_per_m3"/>
+        <variable initial_value="7.998e6" name="v_out1" units="m3_per_s"/>
+        <variable initial_value="7.998e6" name="v_out2" units="m3_per_s"/>
+        <variable name="v_c1" units="m3_per_s"/>
+        <variable name="v_c2" units="m3_per_s"/>
+        <variable name="v_c3" units="m3_per_s"/>
+        <variable initial_value="0" name="v_I1" units="m3_per_s"/>
+        <variable initial_value="0" name="v_I2" units="m3_per_s"/>
+        <variable initial_value="0" name="v_I3" units="m3_per_s"/>
+        <variable name="u_c1" units="J_per_m3"/>
+        <variable name="u_c2" units="J_per_m3"/>
+        <variable name="u_c3" units="J_per_m3"/>
+        <variable name="u_I1" units="J_per_m3"/>
+        <variable name="u_I2" units="J_per_m3"/>
+        <variable name="u_I3" units="J_per_m3"/>
+        <variable name="u_R1" units="J_per_m3"/>
+        <variable name="u_R2" units="J_per_m3"/>
+        <variable name="u_R3" units="J_per_m3"/>
+        <variable name="q_c1" units="m3"/>
+        <variable name="q_c2" units="m3"/>
+        <variable name="q_c3" units="m3"/>
+        <variable initial_value="0" name="p_I1" units="J_s_per_m3"/>
+        <variable initial_value="0" name="p_I3" units="J_s_per_m3"/>
+        <variable initial_value="0" name="p_I2" units="J_s_per_m3"/>
+        <!-- Constitutive parameters-->
+        <variable initial_value="0.60015e-6" name="C1" units="m6_per_J"/>
+        <variable initial_value="0.125281e-6" name="C2" units="m6_per_J"/>
+        <variable initial_value="0.1125281e-6" name="C3" units="m6_per_J"/>
+        <variable initial_value="1.333e6" name="R1" units="J_s_per_m6"/>
+        <variable initial_value="10.564e6" name="R2" units="J_s_per_m6"/>
+        <variable initial_value="10.664e6" name="R3" units="J_s_per_m6"/>
+        <variable initial_value="0.123e6" name="I1" units="J_s2_per_m6"/>
+        <variable initial_value="0.08665e6" name="I2" units="J_s2_per_m6"/>
+        <variable initial_value="0.06665e6" name="I3" units="J_s2_per_m6"/>
+        <!-- Constitutive relations-->
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>u_c1</ci>
+                <apply>
+                    <divide/>
+                    <ci>q1</ci>
+                    <ci>C1</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u_c2</ci>
+                <apply>
+                    <divide/>
+                    <ci>q2</ci>
+                    <ci>C2</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u_c3</ci>
+                <apply>
+                    <divide/>
+                    <ci>q3</ci>
+                    <ci>C3</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>q1</ci>
+                </apply>
+                <ci>v_c1</ci>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>q2</ci>
+                </apply>
+                <ci>v_c2</ci>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>q3</ci>
+                </apply>
+                <ci>v_c3</ci>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>v_I1</ci>
+                </apply>
+                <apply>
+                    <divide/>
+                    <ci>u_I1</ci>
+                    <ci>I1</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>v_I2</ci>
+                </apply>
+                <apply>
+                    <divide/>
+                    <ci>u_I2</ci>
+                    <ci>I2</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>v_I3</ci>
+                </apply>
+                <apply>
+                    <divide/>
+                    <ci>u_I3</ci>
+                    <ci>I3</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u_R1</ci>
+                <apply>
+                    <times/>
+                    <ci>R1</ci>
+                    <ci>v_I1</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u_R2</ci>
+                <apply>
+                    <times/>
+                    <ci>R2</ci>
+                    <ci>v_I2</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u_R3</ci>
+                <apply>
+                    <times/>
+                    <ci>R3</ci>
+                    <ci>v_I3</ci>
+                </apply>
+            </apply>
+            <!-- for demonstration use only-->
+            <apply>
+                <eq/>
+                <ci>q_c1</ci>
+                <apply>
+                    <minus/>
+                    <ci>q1</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_c2</ci>
+                <apply>
+                    <minus/>
+                    <ci>q2</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_c3</ci>
+                <apply>
+                    <minus/>
+                    <ci>q3</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>p_I1</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>u_I1</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>p_I3</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>u_I3</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>p_I2</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>u_I2</ci>
+                </apply>
+            </apply>
+            <!-- Conservation laws-->
+            <apply>
+                <eq/>
+                <ci>u_I1</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <minus/>
+                        <ci>u_in</ci>
+                        <ci>u_R1</ci>
+                    </apply>
+                    <ci>u_c1</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>v_I1</ci>
+                <apply>
+                    <plus/>
+                    <ci>v_c1</ci>
+                    <ci>v_I2</ci>
+                    <ci>v_I3</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u_I2</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <minus/>
+                        <ci>u_c1</ci>
+                        <ci>u_R2</ci>
+                    </apply>
+                    <ci>u_c2</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>v_I2</ci>
+                <apply>
+                    <plus/>
+                    <ci>v_c2</ci>
+                    <ci>v_out1</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u_I3</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <minus/>
+                        <ci>u_c1</ci>
+                        <ci>u_R3</ci>
+                    </apply>
+                    <ci>u_c3</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>v_I3</ci>
+                <apply>
+                    <plus/>
+                    <ci>v_c3</ci>
+                    <ci>v_out2</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+</model>
