@@ -1,0 +1,197 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+This CellML file was generated on 10/17/2019 at 2:22:33 at PM using:
+
+COR (0.9.31.1409)
+Copyright 2002-2019 Dr Alan Garny
+http://cor.physiol.ox.ac.uk/ - cor@physiol.ox.ac.uk
+
+CellML 1.0 was used to generate this model
+http://www.cellml.org/
+-->
+<model cmeta:id="BG3" name="BG3" xmlns="http://www.cellml.org/cellml/1.0#" xmlns:cellml="http://www.cellml.org/cellml/1.0#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+    <units name="J_per_C">
+        <unit units="joule"/>
+        <unit exponent="-1" units="coulomb"/>
+    </units>
+    <units name="C_per_s">
+        <unit units="coulomb"/>
+        <unit exponent="-1" units="second"/>
+    </units>
+    <units name="C_per_s2">
+        <unit units="coulomb"/>
+        <unit exponent="-2" units="second"/>
+    </units>
+    <units name="C2_per_J">
+        <unit exponent="2" units="coulomb"/>
+        <unit exponent="-1" units="joule"/>
+    </units>
+    <units name="Js_per_C2">
+        <unit units="joule"/>
+        <unit units="second"/>
+        <unit exponent="-2" units="coulomb"/>
+    </units>
+    <units name="Js_per_C">
+        <unit units="joule"/>
+        <unit units="second"/>
+        <unit exponent="-1" units="coulomb"/>
+    </units>
+    <units name="Js2_per_C2">
+        <unit units="joule"/>
+        <unit exponent="2" units="second"/>
+        <unit exponent="-2" units="coulomb"/>
+    </units>
+    <component name="main">
+        <variable initial_value="0" name="t" units="second"/>
+        <variable initial_value="1" name="q1" units="coulomb"/>
+        <variable initial_value="0" name="q2" units="coulomb"/>
+        <variable name="v1" units="C_per_s"/>
+        <variable name="v2" units="C_per_s"/>
+        <variable name="v3" units="C_per_s"/>
+        <variable name="u1" units="J_per_C"/>
+        <variable name="u2" units="J_per_C"/>
+        <variable name="u3" units="J_per_C"/>
+        <variable name="u4" units="J_per_C"/>
+        <variable name="u5" units="J_per_C"/>
+        <variable name="u6" units="J_per_C"/>
+        <variable name="u7" units="J_per_C"/>
+        <variable name="p6" units="Js_per_C"/>
+        <variable initial_value="1000e-6" name="C1" units="C2_per_J"/>
+        <variable initial_value="470e-6" name="C2" units="C2_per_J"/>
+        <variable initial_value="10e3" name="R1" units="Js_per_C2"/>
+        <variable initial_value="10e3" name="R2" units="Js_per_C2"/>
+        <variable initial_value="1e3" name="R3" units="Js_per_C2"/>
+        <variable initial_value="1e3" name="R4" units="Js_per_C2"/>
+        <variable initial_value="100e-6" name="L1" units="Js2_per_C2"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>q1</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>v1</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>q2</ci>
+                </apply>
+                <ci>v2</ci>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>p6</ci>
+                </apply>
+                <ci>u6</ci>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>v1</ci>
+                <apply>
+                    <plus/>
+                    <ci>v2</ci>
+                    <ci>v3</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u1</ci>
+                <apply>
+                    <plus/>
+                    <ci>u2</ci>
+                    <ci>u3</ci>
+                    <ci>u4</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u3</ci>
+                <apply>
+                    <plus/>
+                    <ci>u5</ci>
+                    <ci>u6</ci>
+                    <ci>u7</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u1</ci>
+                <apply>
+                    <divide/>
+                    <ci>q1</ci>
+                    <ci>C1</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u2</ci>
+                <apply>
+                    <times/>
+                    <ci>v1</ci>
+                    <ci>R1</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u3</ci>
+                <apply>
+                    <divide/>
+                    <ci>q2</ci>
+                    <ci>C2</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u4</ci>
+                <apply>
+                    <times/>
+                    <ci>v1</ci>
+                    <ci>R4</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u5</ci>
+                <apply>
+                    <times/>
+                    <ci>v3</ci>
+                    <ci>R2</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>p6</ci>
+                <apply>
+                    <times/>
+                    <ci>v3</ci>
+                    <ci>L1</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u7</ci>
+                <apply>
+                    <times/>
+                    <ci>v3</ci>
+                    <ci>R3</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+</model>
